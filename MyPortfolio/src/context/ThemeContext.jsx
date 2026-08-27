@@ -5,11 +5,29 @@ const ThemeContext = createContext()
 
 export function Themeprovider({ children }) {
     //estado para almacenar el tema actual
-    const [theme, setTheme] = useState('light')
+    const [theme, setTheme] = useState(() => {
+        const savedTheme = localStorage.getItem('theme')
+        if (savedTheme) return savedTheme
+
+        // opcional: respeta el modo oscuro del sistema si el usuario nunca eligió antes
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        return prefersDark ? 'dark' : 'light'
+    })
 
     //"Cada vez que theme cambie, modifica el elemento <html> del documento."
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme)
+    }, [theme])
+
+    //Efecto para asignar o quitar .dark a los estilos
+    useEffect(() => {
+        const root = document.documentElement
+        if (theme === 'dark') {
+            root.classList.add('dark')
+        } else {
+            root.classList.remove('dark')
+        }
+        localStorage.setItem('theme', theme)
     }, [theme])
 
     //funcion que cambie el estado del tema
