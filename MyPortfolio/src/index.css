@@ -80,11 +80,11 @@ html {
 /* Modo Light */
 .static-binary-grid.binary-grid-light::before {
     color: #000000;
-    opacity: 0.18;
+    opacity: 0.20;
 }
 
 /* Modo Dark */
 .static-binary-grid.binary-grid-dark::before {
     color: #ffffff;
-    opacity: 0.18;
+    opacity: 0.10;
 }

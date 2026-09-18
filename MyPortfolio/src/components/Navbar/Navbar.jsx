@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { navigationHomeItems } from '../../data/navigation';
 import { Menu, X, Sun, Moon, Logs } from 'lucide-react'
-import logo from '../../../public/images/logo.png'
+import logo from '../../assets/images/logo.png'
 import { useTheme } from '../../context/ThemeContext.jsx'
 
 const Navbar = () => {
