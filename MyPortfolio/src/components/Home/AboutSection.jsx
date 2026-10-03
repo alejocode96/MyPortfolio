@@ -31,23 +31,12 @@ const AboutSection = () => {
 
                         {/* Párrafo 1 */}
                         <p ref={para1Ref} className='text-zinc-700  dark:text-zinc-300 text-sm sm:text-md mb-8 leading-relaxed'>
-                            Ingeniero en Sistemas de Información con sólida experiencia en desarrollo full stack,
-                            análisis de datos, automatización de procesos e inteligencia artificial aplicada.
-                            Orientado a construir soluciones tecnológicas de alto impacto que optimizan la eficiencia
-                            operativa, impulsan la transformación digital y respaldan la toma de decisiones estratégicas.
+                            Ingeniero en Sistemas de Información que combina desarrollo full stack, análisis de datos, automatización e inteligencia artificial aplicada. Construyo soluciones que simplifican la operación, aceleran la transformación digital y ayudan a tomar mejores decisiones.
                         </p>
 
                         {/* Párrafo 2 */}
                         <p ref={para2Ref} className='text-zinc-700  dark:text-zinc-300 text-sm sm:text-md mb-8 leading-relaxed'>
-                            He liderado el desarrollo de aplicaciones web, sistemas empresariales y flujos de
-                            automatización inteligente, integrando tecnologías como JavaScript, Python, C#, .NET,
-                            SQL Server y Power BI. Además, me he desempeñado como mentor de IA Generativa en
-                            NODO – EAFIT, formando profesionales en el uso estratégico de modelos de lenguaje e
-                            inteligencia artificial aplicada al entorno laboral. Mi enfoque combina pensamiento
-                            analítico, arquitectura escalable y visión de negocio para entregar soluciones que
-                            generan valor real y medible.
-
-                        </p>
+                            He liderado el desarrollo de aplicaciones web y sistemas empresariales con JavaScript, Python, C#, .NET y SQL Server, y he construido dashboards analíticos con Power BI. Además, diseño flujos de automatización y agentes de IA con diferentes herramientas y modelos, integrados en plataformas como n8n, Zapier, Make y Power Automate. Me he desempeñado como mentor de IA y automatizaciones con n8n en NODO – EAFIT, formando a profesionales en el uso estratégico de modelos de lenguaje y automatización inteligente en su entorno laboral. Mi enfoque combina pensamiento analítico, arquitectura escalable y visión de negocio para entregar soluciones que generan valor real y medible.                        </p>
                     </div>
 
                     {/* ── Columna derecha — cards ────────────────────────── */}
@@ -62,10 +51,7 @@ const AboutSection = () => {
                                         </div>
                                         <h3 className='text-xl font-semibold mb-3 text-blue-900 dark:text-blue-50'>Desarrollo Full Stack</h3>
                                         <p className='text-sm leading-relaxed text-blue-800 dark:text-blue-200'>
-                                            Diseño y desarrollo de aplicaciones web robustas y sistemas escalables
-                                            con tecnologías modernas. Enfoque en rendimiento, arquitectura limpia y
-                                            experiencia de usuario que convierte ideas en productos digitales
-                                            funcionales y de alto valor.
+                                            Diseño aplicaciones web y sistemas escalables con arquitectura limpia y buena experiencia de usuario. Convierto ideas en productos digitales funcionales.
                                         </p>
                                     </div>
                                 </div>
@@ -82,10 +68,7 @@ const AboutSection = () => {
                                             Análisis de Datos
                                         </h3>
                                         <p className='text-sm leading-relaxed text-zinc-700 dark:text-zinc-300'>
-                                            Transformación de datos en decisiones estratégicas mediante Python,
-                                            SQL Server y Power BI. Construcción de dashboards, modelos analíticos
-                                            y métricas orientadas al negocio para visualizar el rendimiento y
-                                            anticipar oportunidades.
+                                            Convierto datos en decisiones con Python, SQL Server y Power BI. Creo dashboards y métricas que muestran el rendimiento y revelan oportunidades.
                                         </p>
                                     </div>
                                 </div>
@@ -102,10 +85,7 @@ const AboutSection = () => {
                                             Automatización de Procesos
                                         </h3>
                                         <p className='text-sm leading-relaxed text-zinc-700 dark:text-zinc-300'>
-                                            Implementación de flujos automatizados con Power Automate, n8n, Make
-                                            y Zapier para conectar sistemas, eliminar tareas repetitivas y reducir
-                                            tiempos operativos. Soluciones que integran aplicaciones, sincronizan
-                                            datos y escalan con el negocio sin intervención manual.
+                                            Conecto sistemas y elimino tareas repetitivas con n8n, Power Automate, Make y Zapier. Integro herramientas de IA en los flujos para interpretar información y ejecutar acciones sin intervención manual.
                                         </p>
                                     </div>
                                 </div>
@@ -122,8 +102,7 @@ const AboutSection = () => {
                                             Inteligencia Artificial Aplicada
                                         </h3>
                                         <p className='text-sm leading-relaxed text-zinc-700 dark:text-zinc-300'>
-                                            Desarrollo de agentes autónomos, asistentes conversacionales y pipelines de IA generativa con LLMs, RAG y function calling. Soluciones que automatizan decisiones complejas, extraen valor de datos no estructurados y se integran de forma nativa en los procesos reales del negocio.
-                                        </p>
+                                            Desarrollo agentes y asistentes con LLMs, RAG y function calling, usando diferentes herramientas de IA. Los integro en procesos reales para automatizar decisiones y aprovechar datos no estructurados.                                        </p>
                                     </div>
                                 </div>
                             </div>
