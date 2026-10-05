@@ -3,6 +3,7 @@ import React from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import HeroSection from '../components/Home/HeroSection'
 import AboutSection from '../components/Home/AboutSection'
+import SoluctionSection from '../components/Home/SoluctionSection'
 const Home = () => {
     return (
         <>
@@ -10,6 +11,7 @@ const Home = () => {
             <main className=''>
                 <HeroSection />
                 <AboutSection />
+                <SoluctionSection />
             </main>
         </>
     )

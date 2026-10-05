@@ -14,8 +14,8 @@ export const navigationHomeItems = [
     icon: ContactRound,
   },
   {
-    name: "Mis Servicios",
-    href: "#myServicesSection",
+    name: "Soluciones",
+    href: "#mySoluctionSection",
     icon: CodeXml,
   },
   {

@@ -1,0 +1,34 @@
+export const solutions=[
+    {
+        id:"analitica-datos",
+        title:"Análisis de Datos",
+        description:"De datos brutos a decisiones con Python, SQL Server, y Power BI. Dashboards, modelos analíticos y métricas de negocio.",
+        image:"",
+        alt:"",
+        active: false,
+    },
+    {
+        id:"ia-generativa",
+        title:"IA Aplicada",
+        description:"Agentes y asistentes con LLMs, RAG y function calling. Se integran en procesos reales para automatizar decisiones.",
+        image:"",
+        alt:"",
+        active: false,
+    },
+    {
+        id:"automatizacion",
+        title:"Automatización",
+        description:"Flujos inteligentes con n8n, Make, Zapier y Power Automate. Conectan aplicaciones y eliminan tareas repetitivas sin código.",
+        image:"",
+        alt:"",
+        active: false,
+    },
+    {
+        id:"desarrollo-software",
+        title:"Desarrollo Full Stack",
+        description:"Aplicaciones web y sistemas empresariales con JavaScript, C# y .NET. Arquitectura limpia, buen rendimiento y experiencia de usuario cuidada.",
+        image:"",
+        alt:"",
+        active: false,
+    },
+]
