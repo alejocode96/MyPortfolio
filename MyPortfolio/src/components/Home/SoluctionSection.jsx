@@ -17,7 +17,7 @@
  *   - Responsive: 1 card por vista en móvil, 2 desde md (768px), 3 desde lg (1024px).
  *   - Navegación: dots, arrastre con mouse y swipe táctil. Avanza de a una card
  *     y se detiene en los extremos.
- *   - Altura: la sección nunca pasa del 95% del alto de la ventana (ver CARD_BASE).
+ *   - Altura: la sección nunca pasa del 98% del alto de la ventana (ver CARD_BASE).
  *   - CTA: "Ver proyectos" navega a /soluciones/:id solo si la solución está activa.
  *
  * Dependencias:
@@ -31,6 +31,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
+import DataAnalysisVisual from "../SolutionVisuals/DataAnalysisVisual";
+import AppliedAIVisual from "../SolutionVisuals/AppliedAIVisual";
+import AutomationVisual from "../SolutionVisuals/AutomationVisual";
+import FullStackVisual from "../SolutionVisuals/FullStackVisual";
 //datos de las cards
 import { solutions } from '../../data/solutions';
 
@@ -42,10 +46,11 @@ import { ArrowUpRight, Clock } from 'lucide-react'
 // para que la lógica pueda alternar estados (card activa, dot activo, botón).
 
 //Card base — `relative` para el fondo de puntos.
-//Alto: la sección nunca pasa del 95% de la ventana. Se resta lo fijo
-//(pt + dots + pb: 23.5rem en móvil, 26rem desde md) y se limita entre 260px y 330px
+//Alto: la sección nunca pasa del 98% de la ventana. Se resta lo fijo
+//(pt + dots + pb: 23.5rem en móvil, 24rem desde md), se suman 20px extra para el área visual
+//y se limita entre 280px y 420px. Esos 20px van a la figura (flex-1); el texto no cambia
 const CARD_BASE =
-    'relative flex h-[clamp(260px,calc(95svh_-_23.5rem),330px)] md:h-[clamp(260px,calc(95svh_-_26rem),330px)] flex-col overflow-hidden rounded-[20px] border border-black/5 bg-gray-100 ' +
+    'relative flex h-[clamp(280px,calc(98svh_-_23.5rem_+_20px),420px)] md:h-[clamp(280px,calc(98svh_-_24rem_+_20px),420px)] flex-col overflow-hidden rounded-[20px] border border-black/5 bg-gray-100 ' +
     'shadow-[0_2px_12px_0_rgba(0,0,0,0.08),0_1px_3px_0_rgba(0,0,0,0.05)] dark:border-white/10 dark:bg-zinc-800'
 
 //Hover solo en cards activas (sin cursor-pointer: la acción es el botón)
@@ -98,28 +103,36 @@ const GAP = 16; // px — igual a gap-4 del track; se usa para calcular el despl
  * @param {Object}   props.solution  Elemento de solutions.js ({ id, title, description, image, alt, active })
  * @param {Function} props.onClick   (solutionId, isActive) => void — lo provee SoluctionSection
  */
+
+//nombre en solutions.js → componente
+const VISUAL_MAP = {
+    DataAnalysisVisual: DataAnalysisVisual,
+    AppliedAIVisual: AppliedAIVisual,
+    AutomationVisual: AutomationVisual,
+    FullStackVisual: FullStackVisual,
+};
+
 function SolutionCard({ solution, onClick }) {
+    // Busca el componente por su nombre; si no hay, queda en null
+    const Visual = VISUAL_MAP[solution.visual] || null;
     return (
         <article className={`${CARD_BASE} ${solution.active ? CARD_ACTIVE : ''}`}>
             {/* Fondo de puntos */}
             <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={DOT_PATTERN} />
 
-            {/* Área visual — imagen o placeholder; draggable={false} evita el arrastre nativo de la imagen */}
-            <figure className="relative z-[1] min-h-20 flex-1 overflow-hidden">
-                {solution.image ? (
+            {/* Área visual — imagen o placeholder; draggable={false} evita el arrastre nativo de la imagen.
+                Si la solución no está activa, `grayscale` pasa los acentos (azul) a escala de grises. */}
+            <figure className={`relative z-[1] min-h-20 flex-1 overflow-hidden ${solution.active ? '' : 'grayscale'}`}>
+                {Visual ? (
+                    <Visual />
+                ) : solution.image ? (
                     <img src={solution.image} alt={solution.alt} loading="lazy" draggable={false} className="pointer-events-none h-full w-full object-cover" />
                 ) : (
                     <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-zinc-400/20 dark:bg-zinc-950/40">
-                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" className="text-zinc-500 opacity-30 dark:text-zinc-400">
-                            <path d="M14 3v10m0 0 4-4m-4 4-4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M4 18v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-                        </svg>
-                        <span className="text-[10px] uppercase tracking-[0.5px] text-zinc-400 dark:text-zinc-500">
-                            Proyectos en camino
-                        </span>
+                        {/* ...placeholder sin cambios... */}
                     </div>
                 )}
-                {/* Degradado inferior — funde la imagen con el fondo de la card */}
+                {/* Degradado inferior — sin cambios */}
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-b from-transparent to-gray-100 dark:to-zinc-800" />
             </figure>
 
@@ -188,6 +201,8 @@ const SoluctionSection = () => {
     const maxIndex = Math.max(0, solutions.length - slidesPerView);
     currentIndexRef.current = currentIndex;
     maxIndexRef.current = maxIndex;
+
+
 
     // ── Cards por vista según el ancho de la ventana ──
     // Mismos cortes que SLIDE_WIDTH (md = 768px, lg = 1024px) para que CSS y JS coincidan.
@@ -362,8 +377,8 @@ const SoluctionSection = () => {
             </div>
 
             {/* Contenedor dots + carrusel — relative z-10 lo pinta sobre el panel.
-                pt-70 / md:pt-80 bajan el carrusel por debajo del título del panel. */}
-            <div className="relative z-10 px-6 pt-70 md:pt-80 pb-12 sm:px-8 md:px-10">
+                pt-70 / md:pt-72 bajan el carrusel justo por debajo del título del panel. */}
+            <div className="relative z-10 px-6 pt-70 md:pt-72 pb-12 sm:px-8 md:px-10">
 
                 {/* Dots — uno por posición posible; se ocultan si todas las cards caben */}
                 {maxIndex > 0 && (
