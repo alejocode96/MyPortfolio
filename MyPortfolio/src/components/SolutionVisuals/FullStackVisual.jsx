@@ -13,6 +13,8 @@ const ORDERS = [
     { width: 62, status: 'En proceso', done: false },
     { width: 72, status: 'Entregado', done: true },
     { width: 55, status: 'Pendiente', done: false },
+    { width: 68, status: 'Entregado', done: true },
+    { width: 48, status: 'En proceso', done: false },
 ]
 
 //Líneas del editor: sangría y "palabras" (tipo de token + ancho en px)
@@ -78,16 +80,19 @@ function BrowserWindow() {
                             + Nuevo pedido
                         </span>
                     </div>
-                    {ORDERS.map((order, i) => (
-                        <div key={i} className={`grid shrink-0 grid-cols-[1fr_32px] items-center gap-1 border-b py-[2.5px] ${SOFT_BORDER}`}>
-                            <span className="h-[3px] rounded-sm bg-zinc-300 dark:bg-zinc-600" style={{ width: `${order.width}%` }} />
-                            <span className={`rounded-full py-px text-center text-[5px] font-semibold ${order.done
-                                ? 'bg-indigo-500/15 text-indigo-700 dark:bg-indigo-400/15 dark:text-indigo-300'
-                                : 'bg-zinc-200 text-zinc-400 dark:bg-zinc-700 dark:text-zinc-500'}`}>
-                                {order.status}
-                            </span>
-                        </div>
-                    ))}
+                    {/* Filas: se reparten en todo el alto libre; si no caben, se recortan abajo */}
+                    <div className="flex min-h-0 flex-1 flex-col justify-around overflow-hidden">
+                        {ORDERS.map((order, i) => (
+                            <div key={i} className={`grid shrink-0 grid-cols-[1fr_32px] items-center gap-1 border-b py-[2.5px] ${SOFT_BORDER}`}>
+                                <span className="h-[3px] rounded-sm bg-zinc-300 dark:bg-zinc-600" style={{ width: `${order.width}%` }} />
+                                <span className={`rounded-full py-px text-center text-[5px] font-semibold ${order.done
+                                    ? 'bg-indigo-500/15 text-indigo-700 dark:bg-indigo-400/15 dark:text-indigo-300'
+                                    : 'bg-zinc-200 text-zinc-400 dark:bg-zinc-700 dark:text-zinc-500'}`}>
+                                    {order.status}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
@@ -97,15 +102,15 @@ function BrowserWindow() {
 //Editor de código superpuesto (el back) — siempre oscuro, como un IDE
 function CodeEditor() {
     return (
-        <div className="absolute top-[44%] -right-1 flex w-[52%] -rotate-4 flex-col overflow-hidden rounded-lg border border-white/[0.08] bg-zinc-900 shadow-[0_8px_22px_rgba(0,0,0,0.22)] dark:bg-[#0b0b0e]">
+        <div className="absolute top-[44%] bottom-[12%] -right-1 flex w-[52%] -rotate-4 flex-col overflow-hidden rounded-lg border border-white/[0.08] bg-zinc-900 shadow-[0_8px_22px_rgba(0,0,0,0.22)] dark:bg-[#0b0b0e]">
             {/* Pestaña con el nombre del archivo */}
             <div className="flex shrink-0 items-center gap-1 border-b border-white/[0.06] bg-white/[0.04] px-1.5 py-1 font-mono text-[5.5px] whitespace-nowrap text-zinc-400">
                 <span className="h-[5px] w-[5px] shrink-0 rounded-[1.5px] bg-indigo-400" />
                 PedidosController.cs
             </div>
 
-            {/* Código: cada "palabra" es una barra de color */}
-            <div className="flex flex-col gap-[3px] px-1.5 py-[5px]">
+            {/* Código: cada "palabra" es una barra de color. Las líneas se reparten en el alto del editor */}
+            <div className="flex min-h-0 flex-1 flex-col justify-around gap-[3px] px-1.5 py-[5px]">
                 {CODE_LINES.map((line, i) => (
                     <div key={i} className="flex h-[3px] items-center gap-[3px]" style={{ marginLeft: line.indent * 5 }}>
                         <span className="mr-0.5 w-1.5 shrink-0 text-right font-mono text-[4px] leading-none text-zinc-600">{i + 1}</span>

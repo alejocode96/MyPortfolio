@@ -81,34 +81,38 @@ const AppliedAIVisual = () => {
                     <span className="grid h-3 w-3 shrink-0 place-items-center rounded-full bg-violet-500 dark:bg-violet-400">
                         <SparkIcon className="h-[7px] w-[7px] fill-white"></SparkIcon>
                     </span>
-                    <span className="text-[6.5px] font-semibold txt-zinc-800 dark:text-zinc-100">Asistente</span>
+                    <span className="text-[6.5px] font-semibold text-zinc-800 dark:text-zinc-100">Asistente</span>
                     <span className="ml-auto flex items-center gap-[3px] text-[6px] text-zinc-400 dark:text-zinc-500">
                         <span className="h-1 w-1 rounded-full bg-green-500" />
                         en línea
                     </span>
                 </div>
 
-                {/* Archivos en abanico — arriba a la derecha */}
-                <div className="relative mr-1 h-[32px] w-[52px] shrink-0 self-end">
-                    {FILES.map((file) => (
-                        <FileSheet key={file.type} {...file} />
-                    ))}
+                {/* Conversación: en cards altas ocupa el alto libre y se centra (sin hueco abajo).
+                    Sin min-h-0: nunca se encoge por debajo de su contenido, así no se monta sobre la barra */}
+                <div className="flex flex-1 flex-col justify-center gap-1.5">
+                    {/* Archivos en abanico — a la derecha */}
+                    <div className="relative mr-1 h-[32px] w-[52px] shrink-0 self-end">
+                        {FILES.map((file) => (
+                            <FileSheet key={file.type} {...file} />
+                        ))}
+                    </div>
+
+                    {/* Pregunta del usuario */}
+                    <div className={`${MSG} ${MSG_USER}`}>¿Qué región vendió más este trimestre?</div>
+
+                    {/* Respuesta de la IA con la fuente citada */}
+                    <div className={`${MSG} ${MSG_BOT}`}>
+                        Norte, con <b className="font-bold text-violet-700 dark:text-violet-300">$420K</b> (+18% vs. Q2).
+                        <span className="mt-[3px] flex items-center gap-[3px] whitespace-nowrap font-mono text-[5.5px] text-zinc-400 dark:text-zinc-500">
+                            <i className="h-1.5 w-[5px] rounded-[1px] bg-green-600 dark:bg-green-400" />
+                            ventas_q3.xlsx · hoja Resumen
+                        </span>
+                    </div>
                 </div>
 
-                {/* Pregunta del usuario */}
-                <div className={`${MSG} ${MSG_BOT}`}>¿Qué región vendió más este trimestre?</div>
-
-                {/* Respuesta de la IA con la fuente citada */}
-                <div className={`${MSG} ${MSG_BOT}`}>
-                    Norte, con <b className="font-bold text-violet-700 dark:text-violet-300">$420K</b> (+18% vs. Q2).
-                    <span className="mt-[3px] flex items-center gap-[3px] whitespace-nowrap font-mono text-[5.5px] text-zinc-400 dark:text-zinc-500">
-                        <i className="h-1.5 w-[5px] rounded-[1px] bg-green-600 dark:bg-green-400" />
-                        ventas_q3.xlsx · hoja Resumen
-                    </span>
-                </div>
-
-                {/* Barra de prompt */}
-                <div className="mt-0.5 flex shrink-0 items-center gap-[5px] rounded-full border border-zinc-300 bg-gray-100 py-[3px] pr-[3px] pl-1.5 dark:border-zinc-600 dark:bg-zinc-800">
+                {/* Barra de prompt — siempre debajo de la conversación */}
+                <div className="mt-0.5 mb-2 flex shrink-0 items-center gap-[5px] rounded-full border border-zinc-300 bg-gray-100 py-[3px] pr-[3px] pl-1.5 dark:border-zinc-600 dark:bg-zinc-800">
                     {/* Clip */}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="h-2 w-2 shrink-0 text-zinc-400 dark:text-zinc-500">
                         <path d="M21.4 11.1l-9.2 9.2a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 0 1-2.8-2.8l8.5-8.5" />

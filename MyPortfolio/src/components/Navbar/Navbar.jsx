@@ -2,15 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { navigationHomeItems } from '../../data/navigation';
-import { Menu, X, Sun, Moon, Logs } from 'lucide-react'
+import { Sun, Moon, Logs } from 'lucide-react'
 import logo from '../../assets/images/logo.png'
 import { useTheme } from '../../context/ThemeContext.jsx'
 
 const Navbar = () => {
     //estado para el manejo del tema viene desde el contexto
     const { theme, toggleTheme } = useTheme()
-    //estado para menu desktok
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
     /**Estado del menú dropdown (mobile/tablet) */
     const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
     //**referencia para el menu */
@@ -70,6 +68,17 @@ const Navbar = () => {
         }
 
     }, [])
+
+    /**
+     * Click en una opción del menú mobile/tablet: cierra el dropdown
+     * y baja con scroll suave a la sección (href = "#idDeLaSeccion").
+     */
+    const handleMenuItemClick = (event, href) => {
+        event.preventDefault()
+        setIsDropdownMenuOpen(false)
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
+        history.replaceState(null, '', href)
+    }
 
     return (
         <nav className='absolute top-0 left-0 right-0 z-[100] w-full flex justify-center px-4 sm:px-6 py-2.5 '>

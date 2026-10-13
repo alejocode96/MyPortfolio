@@ -88,3 +88,278 @@ html {
     color: #ffffff;
     opacity: 0.10;
 }
+
+/* ===== Animación de la ilustración "Domina la IA Generativa" (FormationSection) ===== */
+
+/* Variante "animar:" — decide CUÁNDO se anima.
+   Escritorio (hay mouse): solo mientras el mouse está sobre la card (la card tiene la clase group).
+   Móvil (no hay mouse): siempre.
+   Si el sistema pide reducir el movimiento: nunca. */
+@custom-variant animar {
+    @media (prefers-reduced-motion: no-preference) {
+        @media (hover: hover) {
+            &:is(:where(.group):hover *) {
+                @slot;
+            }
+        }
+
+        @media (hover: none) {
+            @slot;
+        }
+    }
+}
+
+/* Cada --animate-nombre crea la clase animate-nombre: keyframes + duración + repetición.
+   Agrupadas por lección de la guía. */
+@theme {
+    /* ---------- 4.2 · El prompt se escribe solo ---------- */
+    --animate-genai-type: genai-type 8s steps(19) infinite;
+    --animate-genai-caret: genai-caret 0.8s step-end infinite;
+
+    /* el texto del prompt se escribe letra a letra */
+    @keyframes genai-type {
+        0% { width: 0; }
+        26%, 92% { width: 68px; }
+        100% { width: 0; }
+    }
+
+    /* la rayita de escritura parpadea */
+    @keyframes genai-caret {
+        50% { opacity: 0; }
+    }
+
+    /* ---------- 4.3 · El cursor hace clic ---------- */
+    --animate-genai-cursor: genai-cursor 8s infinite;
+    --animate-genai-send: genai-send 8s infinite;
+    --animate-genai-ripple: genai-ripple 8s infinite;
+
+    /* el cursor llega al botón, hace clic y se va */
+    @keyframes genai-cursor {
+        0%, 16% { transform: translate(30px, 28px); opacity: 0; }
+        28%, 32% { transform: none; opacity: 1; }
+        34% { transform: scale(0.85); }
+        37%, 66% { transform: none; opacity: 1; }
+        76%, 100% { transform: translate(20px, 24px); opacity: 0; }
+    }
+
+    /* el botón se hunde con el clic */
+    @keyframes genai-send {
+        0%, 33% { transform: scale(1); }
+        35% { transform: scale(0.8); }
+        38%, 100% { transform: scale(1); }
+    }
+
+    /* la onda crece y se desvanece */
+    @keyframes genai-ripple {
+        0%, 34% { opacity: 0; transform: scale(1); }
+        35% { opacity: 0.8; transform: scale(1); }
+        45%, 100% { opacity: 0; transform: scale(2.3); }
+    }
+
+    /* ---------- 4.4 · Aparecen los 3 puntos ---------- */
+    --animate-genai-point: genai-point 8s infinite backwards;
+
+    /* cada punto de la respuesta aparece desde abajo, desenfocado */
+    @keyframes genai-point {
+        0%, 40% { opacity: 0; transform: translateY(4px); filter: blur(2px); }
+        45%, 92% { opacity: 1; transform: none; filter: none; }
+        100% { opacity: 0; }
+    }
+
+    /* ---------- 4.5 · Notificación y chispa que late ---------- */
+    --animate-genai-toast: genai-toast 8s infinite;
+    --animate-genai-pulse: genai-pulse 2s ease-in-out infinite;
+
+    /* la notificación baja y aparece */
+    @keyframes genai-toast {
+        0%, 60% { opacity: 0; transform: translateY(-6px) scale(0.9); }
+        64%, 92% { opacity: 1; transform: none; }
+        100% { opacity: 0; }
+    }
+
+    /* la chispa del título late */
+    @keyframes genai-pulse {
+        50% { box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18); }
+    }
+
+    /* ---------- 4.6 · Los logos flotan y se encienden ---------- */
+    --animate-genai-float: genai-float 5s ease-in-out infinite;
+    --animate-genai-logo: genai-logo 9s infinite backwards;
+    --animate-genai-ring: genai-ring 9s infinite backwards;
+
+    /* los logos suben y bajan 4 px */
+    @keyframes genai-float {
+        50% { transform: translateY(-4px); }
+    }
+
+    /* el logo pasa de gris a su color y vuelve */
+    @keyframes genai-logo {
+        0%, 3%, 17%, 100% { filter: grayscale(1); opacity: 0.4; }
+        6%, 14% { filter: none; opacity: 1; }
+    }
+
+    /* el aro azul aparece mientras el logo está encendido */
+    @keyframes genai-ring {
+        0%, 3%, 17%, 100% { opacity: 0; }
+        6%, 14% { opacity: 1; }
+    }
+}
+
+/* ===== Animación de la ilustración "Datos que Hablan" (FormationSection) ===== */
+/* Usa la misma variante animar: de la card de IA (está más arriba en este archivo) */
+@theme {
+    /* ---------- 4.2 · El notebook escribe y ejecuta ---------- */
+    --animate-datos-type: datos-type 10s steps(34) infinite;
+    --animate-datos-run: datos-run 10s infinite;
+    --animate-datos-bar: datos-bar 10s infinite;
+
+    /* el código se escribe letra a letra (34 caracteres) */
+    @keyframes datos-type {
+        0% { width: 0; }
+        22%, 100% { width: 34ch; }
+    }
+
+    /* el botón de ejecutar se hunde */
+    @keyframes datos-run {
+        0%, 24% { transform: none; }
+        26% { transform: scale(0.8); }
+        29%, 100% { transform: none; }
+    }
+
+    /* las barras de la salida crecen desde abajo */
+    @keyframes datos-bar {
+        0%, 28% { transform: scaleY(0); }
+        40%, 100% { transform: scaleY(1); }
+    }
+
+    /* ---------- 4.3 · Cambio de pestaña ---------- */
+    --animate-datos-first: datos-first 10s infinite;
+    --animate-datos-second: datos-second 10s infinite;
+    --animate-datos-cursor: datos-cursor 10s infinite;
+
+    /* lo del notebook: visible en la primera mitad */
+    @keyframes datos-first {
+        0%, 52% { opacity: 1; }
+        55%, 100% { opacity: 0; }
+    }
+
+    /* lo del informe: visible en la segunda mitad; al final se desvanece */
+    @keyframes datos-second {
+        0%, 52% { opacity: 0; }
+        55%, 96% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+    /* el cursor llega a la pestaña, hace clic y se va */
+    @keyframes datos-cursor {
+        0%, 44% { opacity: 0; transform: translate(26px, 30px); }
+        50% { opacity: 1; transform: none; }
+        52% { opacity: 1; transform: scale(0.85); }
+        54% { opacity: 1; transform: none; }
+        60%, 100% { opacity: 0; transform: translate(14px, 18px); }
+    }
+
+    /* ---------- 4.4 · El informe se dibuja ---------- */
+    --animate-datos-report-bar: datos-report-bar 10s infinite;
+
+    /* las barras del informe crecen después del cambio de pestaña */
+    @keyframes datos-report-bar {
+        0%, 55% { transform: scaleY(0); }
+        68%, 100% { transform: scaleY(1); }
+    }
+}
+
+/* ===== Animación de la ilustración "Mentoría Personalizada" (FormationSection) ===== */
+/* Usa la misma variante animar: de la card de IA */
+@theme {
+    --animate-mentor-rec: mentor-rec 1.4s ease-in-out infinite;
+    --animate-mentor-bar: mentor-bar 8s infinite;
+    --animate-mentor-pointer: mentor-pointer 8s infinite;
+    --animate-mentor-talk-you: mentor-talk-you 8s infinite;
+    --animate-mentor-talk-mentor: mentor-talk-mentor 8s infinite;
+    --animate-mentor-ask: mentor-ask 8s infinite;
+    --animate-mentor-answer: mentor-answer 8s infinite;
+
+    /* el punto de grabación late */
+    @keyframes mentor-rec {
+        50% { opacity: 0.35; }
+    }
+
+    /* el gráfico se construye mientras el mentor explica */
+    @keyframes mentor-bar {
+        0%, 44% { transform: scaleY(0.2); }
+        58%, 94% { transform: scaleY(1); }
+        100% { transform: scaleY(0.2); }
+    }
+
+    /* el puntero del mentor señala el gráfico */
+    @keyframes mentor-pointer {
+        0%, 58% { opacity: 0; transform: scale(0.4); }
+        62%, 92% { opacity: 1; transform: none; }
+        100% { opacity: 0; }
+    }
+
+    /* primero hablas tú… */
+    @keyframes mentor-talk-you {
+        0%, 8%, 40%, 100% { opacity: 0; }
+        12%, 36% { opacity: 1; }
+    }
+
+    /* …y luego responde el mentor */
+    @keyframes mentor-talk-mentor {
+        0%, 44%, 92%, 100% { opacity: 0; }
+        48%, 88% { opacity: 1; }
+    }
+
+    /* tu pregunta aparece */
+    @keyframes mentor-ask {
+        0%, 6% { opacity: 0; transform: translateY(6px); }
+        12%, 92% { opacity: 1; transform: none; }
+        100% { opacity: 0; }
+    }
+
+    /* y luego la respuesta */
+    @keyframes mentor-answer {
+        0%, 46% { opacity: 0; transform: translateY(6px); }
+        52%, 92% { opacity: 1; transform: none; }
+        100% { opacity: 0; }
+    }
+}
+
+/* ===== Animación de la ilustración "Mentoría Empresarial" (FormationSection) ===== */
+/* Usa la misma variante animar: de la card de IA */
+@theme {
+    --animate-board-move: board-move 9s infinite;
+    --animate-board-tag-first: board-tag-first 9s infinite;
+    --animate-board-tag-second: board-tag-second 9s infinite;
+    --animate-board-tag-third: board-tag-third 9s infinite;
+
+    /* la tarjeta avanza: Hallazgos → Solución → Implementado */
+    @keyframes board-move {
+        0%, 18% { left: 6px; }
+        30%, 48% { left: calc(6px + (100% - 12px) / 3 + 6px); }
+        60%, 94% { left: calc(6px + 2 * ((100% - 12px) / 3 + 6px)); }
+        100% { left: 6px; }
+    }
+
+    /* etiqueta en Hallazgos: cuello de botella */
+    @keyframes board-tag-first {
+        0%, 24% { opacity: 1; }
+        28%, 96% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    /* etiqueta en Solución: flujo en n8n */
+    @keyframes board-tag-second {
+        0%, 24% { opacity: 0; }
+        28%, 54% { opacity: 1; }
+        58%, 100% { opacity: 0; }
+    }
+
+    /* etiqueta en Implementado: el resultado */
+    @keyframes board-tag-third {
+        0%, 54% { opacity: 0; }
+        58%, 96% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+}

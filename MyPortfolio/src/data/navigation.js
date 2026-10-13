@@ -5,6 +5,7 @@ import {
   CodeXml,
   LayersPlus,
   Newspaper,
+  GraduationCap
 } from "lucide-react";
 
 export const navigationHomeItems = [
@@ -17,6 +18,10 @@ export const navigationHomeItems = [
     name: "Soluciones",
     href: "#mySoluctionSection",
     icon: CodeXml,
+  },
+  { name: "Formaciones", 
+    href: "#formationSection", 
+    icon: GraduationCap 
   },
   {
     name: "Novedades",

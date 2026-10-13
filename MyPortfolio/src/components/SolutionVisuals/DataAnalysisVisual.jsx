@@ -1,5 +1,3 @@
-import React from 'react'
-
 //Panel — fondo, borde suave y columna para apilar el contenido
 const TILE = 'flex min-w-0 flex-col gap-[3px] overflow-hidden rounded-[9px] border px-[7px] py-1.5 ' +
     'border-black/[0.06] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] ' +

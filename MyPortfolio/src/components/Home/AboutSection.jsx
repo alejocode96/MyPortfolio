@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 //iconos
 import { Code2, ChartScatter, MousePointerClick, Zap } from "lucide-react";
 
@@ -7,8 +7,6 @@ const TRANSITION = 'transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
 
 const AboutSection = () => {
 
-    const sectionRef = useRef(null)
-    const glowRef = useRef(null)
     const titleRef = useRef(null)
     const para1Ref = useRef(null)
     const para2Ref = useRef(null)

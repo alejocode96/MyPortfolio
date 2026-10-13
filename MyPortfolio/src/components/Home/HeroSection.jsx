@@ -1,11 +1,10 @@
-import React from 'react'
 import { useTheme } from '../../context/ThemeContext';
 
 import personaje from '../../assets/images/Alejandro_Code_Personaje.png';
 
 const HeroSection = () => {
     //estado para el manejo del tema viene desde el contexto
-    const { theme, toggleTheme } = useTheme()
+    const { theme } = useTheme()
 
     return (
         <section className='h-svh  flex flex-col justify-center items-end transition-colors bg-white dark:bg-zinc-950 mt-16'>

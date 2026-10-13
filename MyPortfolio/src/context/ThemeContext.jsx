@@ -47,6 +47,8 @@ export function Themeprovider({ children }) {
     )
 }
 
+// El hook vive junto a su Provider a propósito; solo afecta al fast refresh de este archivo
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTheme() {
     return useContext(ThemeContext)
 }

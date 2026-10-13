@@ -28,19 +28,19 @@ const NODE_VARIANTS = {
 
 // ==================== DATOS (decorativos) ====================
 
-//Nodos: x en % del ancho, y en px (el lienzo mide 92px)
+//Nodos: x e y en % del lienzo (el lienzo crece con el alto de la card)
 const NODES = [
-    { label: 'Webhook', icon: 'bolt', x: 12, y: 46, variant: 'trigger' },
-    { label: 'Condición', icon: 'branch', x: 44, y: 46, variant: 'idle' },
-    { label: 'Hoja de cálculo', icon: 'sheet', x: 82, y: 20, variant: 'active' },
-    { label: 'Chat del equipo', icon: 'chat', x: 82, y: 72, variant: 'idle' },
+    { label: 'Webhook', icon: 'bolt', x: 12, y: 50, variant: 'trigger' },
+    { label: 'Condición', icon: 'branch', x: 44, y: 50, variant: 'idle' },
+    { label: 'Hoja de cálculo', icon: 'sheet', x: 82, y: 24, variant: 'active' },
+    { label: 'Chat del equipo', icon: 'chat', x: 82, y: 74, variant: 'idle' },
 ]
 
-//Conexiones de centro a centro: el camino ejecutado (active) va en azul
+//Conexiones de centro a centro, en el mismo sistema de % (viewBox 100×100): el camino ejecutado (active) va en azul
 const LINKS = [
-    { d: 'M12 46 L44 46', active: true },                     // Webhook → Condición
-    { d: 'M44 46 C62 46, 62 20, 82 20', active: true },       // Condición → Hoja (ejecutado)
-    { d: 'M44 46 C62 46, 62 72, 82 72', active: false },      // Condición → Chat (no ejecutado)
+    { d: 'M12 50 L44 50', active: true },                     // Webhook → Condición
+    { d: 'M44 50 C62 50, 62 24, 82 24', active: true },       // Condición → Hoja (ejecutado)
+    { d: 'M44 50 C62 50, 62 74, 82 74', active: false },      // Condición → Chat (no ejecutado)
 ]
 
 // ==================== ÍCONOS ====================
@@ -89,11 +89,11 @@ const AutomationVisual = () => {
                     </span>
                 </div>
 
-                {/* Lienzo */}
-                <div className="relative h-[92px] shrink-0 rounded-md text-zinc-300 dark:text-zinc-600" style={CANVAS_DOTS}>
+                {/* Lienzo — ocupa todo el alto libre (mín. 92px); mb-4 lo deja por encima del degradado inferior */}
+                <div className="relative mb-4 min-h-[92px] flex-1 rounded-md text-zinc-300 dark:text-zinc-600" style={CANVAS_DOTS}>
 
                     {/* Conexiones (debajo de los nodos) */}
-                    <svg viewBox="0 0 100 92" preserveAspectRatio="none" className="absolute inset-0 h-full w-full overflow-visible">
+                    <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full overflow-visible">
                         {LINKS.map((link) => (
                             <path
                                 key={link.d}
@@ -112,7 +112,7 @@ const AutomationVisual = () => {
                         <div
                             key={node.label}
                             className={`absolute grid h-[22px] w-[22px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-md border shadow-[0_1px_3px_rgba(0,0,0,0.06)] ${NODE_VARIANTS[node.variant]}`}
-                            style={{ left: `${node.x}%`, top: node.y }}
+                            style={{ left: `${node.x}%`, top: `${node.y}%` }}
                         >
                             <Icon name={node.icon} className="h-2.5 w-2.5" />
                             <span className="absolute top-full left-1/2 mt-[3px] -translate-x-1/2 whitespace-nowrap text-[5.5px] text-zinc-400 dark:text-zinc-500">

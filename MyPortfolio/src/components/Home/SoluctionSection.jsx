@@ -198,31 +198,40 @@ const SoluctionSection = () => {
     const currentIndexRef = useRef(0);     // copia del índice para el listener táctil (se registra una sola vez)
     const maxIndexRef = useRef(0);         // copia del índice máximo para el listener táctil
 
+    const [containerWidth, setContainerWidth] = useState(0); // ancho real del carrusel (px)
+
     const maxIndex = Math.max(0, solutions.length - slidesPerView);
-    currentIndexRef.current = currentIndex;
-    maxIndexRef.current = maxIndex;
 
-
+    // Copias para el listener táctil: se actualizan después de cada render
+    useEffect(() => {
+        currentIndexRef.current = currentIndex;
+        maxIndexRef.current = maxIndex;
+    }, [currentIndex, maxIndex]);
 
     // ── Cards por vista según el ancho de la ventana ──
     // Mismos cortes que SLIDE_WIDTH (md = 768px, lg = 1024px) para que CSS y JS coincidan.
+    // También corrige el índice si queda fuera de rango.
+    // Ej.: en móvil se está en la card 4 (índice 3) y se pasa a escritorio, donde el máximo es 1.
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth >= 1024) setSlidesPerView(3);
-            else if (window.innerWidth >= 768) setSlidesPerView(2);
-            else setSlidesPerView(1);
+            const perView = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+            setSlidesPerView(perView);
+            setCurrentIndex((p) => Math.min(p, Math.max(0, solutions.length - perView)));
         };
         handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // ── Corrige el índice si queda fuera de rango ──
-    // Ej.: en móvil se está en la card 4 (índice 3) y se pasa a escritorio, donde el máximo es 1.
+    // ── Ancho del carrusel ──
+    // ResizeObserver lo mide al montar y cada vez que cambia, para recalcular el desplazamiento.
     useEffect(() => {
-        const maxPossible = Math.max(0, solutions.length - slidesPerView);
-        if (currentIndex > maxPossible) setCurrentIndex(maxPossible);
-    }, [slidesPerView, currentIndex]);
+        const el = carouselRef.current;
+        if (!el) return;
+        const observer = new ResizeObserver(() => setContainerWidth(el.offsetWidth));
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
 
     // Avanzan/retroceden una card. Dan la vuelta en los extremos, pero el arrastre
     // solo las llama cuando no se está en un extremo, así que en la práctica se detiene.
@@ -317,13 +326,10 @@ const SoluctionSection = () => {
     }, []);
 
     // ── Desplazamiento del track ──
-    // Mide el ancho real del carrusel (capa sin padding) y corre el track
+    // Con el ancho real del carrusel (capa sin padding) corre el track
     // currentIndex pasos (card + GAP) a la izquierda, más lo arrastrado.
-    // Nota: al redimensionar sin cruzar un breakpoint no hay re-render, así que
-    // el valor se actualiza en la siguiente interacción.
     const getTransformValue = () => {
-        if (!carouselRef.current) return "translateX(0px)";
-        const containerWidth = carouselRef.current.offsetWidth;
+        if (!containerWidth) return `translateX(${translateX}px)`;
         const cardWidth = (containerWidth - (slidesPerView - 1) * GAP) / slidesPerView;
         const offset = currentIndex * (cardWidth + GAP);
         return `translateX(${-offset + translateX}px)`;

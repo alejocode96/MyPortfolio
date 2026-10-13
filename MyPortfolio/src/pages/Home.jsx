@@ -1,9 +1,9 @@
-import React from 'react'
-
 import Navbar from '../components/Navbar/Navbar'
 import HeroSection from '../components/Home/HeroSection'
 import AboutSection from '../components/Home/AboutSection'
 import SoluctionSection from '../components/Home/SoluctionSection'
+import FormationSection from '../components/Home/FormationSection'
+
 const Home = () => {
     return (
         <>
@@ -12,6 +12,7 @@ const Home = () => {
                 <HeroSection />
                 <AboutSection />
                 <SoluctionSection />
+                <FormationSection />
             </main>
         </>
     )
