@@ -24,37 +24,6 @@ export const publications = [
         description: "Cargar los Excel, dividirlos en fragmentos, buscarlos con embeddings y conectar Claude para que conteste con cifras y fuentes.",
         publicationDate: "22 sep 2026",
         href: "/",
-        active: true, // pásala a true cuando exista su página
-    },
-    // ── Ejemplos de prueba (href "/" para ver la previsualización): bórralos al publicar de verdad ──
-    {
-        id: "excel-power-bi",
-        type: "Tutorial",
-        category: "Datos",
-        title: "Del Excel manual a un reporte en Power BI que se actualiza solo",
-        description: "Cómo pasé un reporte mensual de 3 horas a uno que se refresca cada mañana con Power Query.",
-        publicationDate: "3 sep 2026",
-        href: "/",
-        active: true,
-    },
-    {
-        id: "n8n-make-zapier",
-        type: "Artículo técnico",
-        category: "Automatización",
-        title: "n8n, Make o Zapier: cómo elegir para tu empresa",
-        description: "Comparo precio, límites y curva de aprendizaje con el mismo flujo armado en las tres herramientas.",
-        publicationDate: "18 ago 2026",
-        href: "/",
-        active: true,
-    },
-    {
-        id: "api-fastapi",
-        type: "Tutorial",
-        category: "Desarrollo",
-        title: "Una API con FastAPI para servir tu modelo de predicción",
-        description: "Del notebook a un endpoint con validación, pruebas y despliegue en un contenedor.",
-        publicationDate: "9 jul 2026",
-        href: "/",
-        active: true,
+        active: false, // pásala a true cuando exista su página
     },
 ]
